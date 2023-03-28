@@ -30,24 +30,33 @@ This explains the second part of the necessary boilerplate code below:
 
 ![For Loop](/docs/img/for-loop.png)
 
-In this example, `i` is the index of the current sample in the frame, and `frames` is the maximum number of samples. The `for` loop loops through each sample and performs an operation on them. In the given example, each corresponding input sample is sent to fill the list of output samples. 
+In this example, `i` is the index of the current sample in the frame, and `frames` is the maximum number of samples. The `for` loop loops through each sample in the table and performs a user-defined operation on them. In the example above, each corresponding input sample is sent to fill the list of output samples.
+
+At the end of the frame, the `output` table is emptied to the next node in the signal flow outside of the DSP node. The `input` table is also filled with the next frame of samples.
 
 Global variables and variables that need to be initiated before use are declared above the `process()` function. You do not need make a separate `init()` function.
 
 ![Global Variable Declaration](/docs/img/global-variable-declaration.png)
 
-Although there are no set standards for Lua about case types, in this library, all variables use `camelCase`, all constants use `SCREAMING_SNAKE_CASE`, and all functions use `snake_case()`.
+Declare functions to be used within your `process()` function above it.
+
+![Declaring Functions](/docs/img/declaring-functions.png)
+
+You can declare `local` variables within functions using the `local` keyword.
+
+Although there are no set standards for Lua about case types, in this library, all variables use `camelCase`, all constants use `SCREAMING_SNAKE_CASE`, and all functions use `camelCase()`.
 
 ### TLDR:
 
 1. Declare your inputs and outputs in the inspector panel.
-2. Initialize your global variables and constants.
-3. Add the boilerplate code:
-```
-function process(frames)
-    for i = 1, frames do
-        -- Do stuff here
+1. Initialize your global variables and constants.
+1. Declare your functions.
+1. Add the boilerplate code:
+    ```
+    function process(frames)
+        for i = 1, frames do
+            -- Do stuff here
+        end
     end
-end
-```
-4. Access your inputs and outputs within the for loop like this: `input[i]` and `output[i]`.
+    ```
+1. Access your inputs and outputs within the for loop like this: `input[i]` and `output[i]`.
