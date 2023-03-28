@@ -1,6 +1,8 @@
 # Audulus-DSP
 
-This is a library for writing DSP code in Audulus. The DSP node uses the Lua scripting language to process signals in frames. The DSP node is a great way to write custom audio effects, oscillators, submodule tools, and more.
+This is a library of Lua DSP code written for Audulus' DSP node. The DSP node uses Lua to process signals in batches of samples called frames. 
+
+The DSP node is a great way to write custom audio effects, oscillators, submodule tools, and more.
 
 ## Getting Started
 
@@ -34,6 +36,18 @@ Global variables and variables that need to be initiated before use are declared
 
 ![Global Variable Declaration](/docs/img/global-variable-declaration.png)
 
-Although there are no set standards for Lua about case types, in this library, all variables use `camelCase`, all constants use `SCREAMING_SNAKE_CASE`, and all functions use `snake_case`.
+Although there are no set standards for Lua about case types, in this library, all variables use `camelCase`, all constants use `SCREAMING_SNAKE_CASE`, and all functions use `snake_case()`.
 
+### TLDR:
 
+1. Declare your inputs and outputs in the inspector panel.
+2. Initialize your global variables and constants.
+3. Add the boilerplate code:
+```
+function process(frames)
+    for i = 1, frames do
+        -- Do stuff here
+    end
+end
+```
+4. Access your inputs and outputs within the for loop like this: `input[i]` and `output[i]`.
