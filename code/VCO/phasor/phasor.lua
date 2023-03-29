@@ -28,6 +28,7 @@ phasor should reset to 0 when it reaches 2 * pi.
 Finally, we set the phasorOut value to the phase variable.
 
 --]]
+
 -- Inputs: hzIn sampleRate 
 -- Outputs: phasorOut
 
