@@ -1,6 +1,6 @@
 --[[
 
-Clock
+Variable Pulse Width Clock
 by Mark Boyd
 v 1.0
 March 29, 2023
@@ -15,9 +15,9 @@ First we declare a variable called acc and set it to 0. This is the
 variable that acts as an accumulator.
 
 Inside the process function, we first check to see if the acc variable
-is equal to 0. If it is, we set the pwCtrl variable to the value of the
+is equal to 0. If it is, we set the pw variable to the value of the
 pwCtrlIn input. Since the acc variable is equal to 0 for only one sample 
-at the beginning of each cycle, and we later use the pwCtrl variable
+at the beginning of each cycle, and we later use the pw variable
 instead of the pwCtrlIn input, this prevents the pulse width from
 changing during the cycle.
     
@@ -40,14 +40,14 @@ acc = 0
 function process(frames)
     for i = 1, frames do
         if acc == 0 then
-            pwCtrl = pwCtrlIn[i]
+            pw = pwCtrlIn[i]
         end
         
         local incr = hzIn[i] / sampleRate[i]
         acc = acc + incr
-        
+
         if acc >= 1 then acc = 0 end
 
-        gateOut[i] = acc <= pwCtrl and 1 or 0
+        gateOut[i] = acc <= pw and 1 or 0
     end
 end
