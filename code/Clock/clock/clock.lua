@@ -6,43 +6,34 @@ v 1.0
 March 29, 2023
 http://www.markboyd.dev
 
-This script uses a phasor to create a square wave that we can use as a
-clock signal.
+This script uses an accumulator to create a 0 to 1 saw wave which we
+then use to create a square wave.
 
-We first create a variable called twoPi and set it to 2 * pi. This is
-because it's best practice to precalculate static values outside of the
-loop, saving processing time.
+First we declare a variable called acc and set it to 0. This is the
+variable that acts as an accumulator.
 
-We also initialize the phase variable to 0. This is the variable that
-acts as the accumulator for the phasor.
+Inside the process function, we calculate the incr (increment) variable 
+by dividing the hzIn value by the sampleRateIn value.
 
-Inside the process function, we calculate the phaseIncrement variable by
-dividing the hzIn value by the sampleRateIn value and multiplying by
-twoPi.
-
-Next, the phase variable is incremented by the phaseIncrement variable.
-
-We then check to see if the phase variable is greater than or equal to
-twoPi. If it is, we set the phase variable to 0. This is because the
-phasor should reset to 0 when it reaches 2 * pi.
+Then, we add the incr variable to the acc variable. If the acc variable
+is greater than or equal to 1, we set it to 0.
 
 Finally, we use a ternary operator to set the gateOut value to 1 if the
-phase variable is less than pi, and 0 if it is greater than or equal to
-pi.
+phase variable is less than or equal to 0.5, and 0 if it is greater
+than 0.5.
 
 --]]
 
 -- Inputs: hzIn sampleRate 
 -- Outputs: phasorOut
 
-twoPi = 2 * math.pi
-phase = 0
+acc = 0
 
 function process(frames)
     for i = 1, frames do
-        phaseIncrement = hzIn[i] / sampleRateIn[i] * twoPi
-        phase = phase + phaseIncrement
-		if phase >= twoPi then phase = 0 end
-        gateOut[i] = phase < math.pi and 1 or 0
+        local incr = hzIn[i] / sampleRateIn[i]
+        acc = acc + incr
+		if acc >= 1 then acc = 0 end
+        gateOut[i] = acc <= 0.5 and 1 or 0
     end
 end
