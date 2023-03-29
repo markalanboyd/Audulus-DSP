@@ -12,13 +12,15 @@ Above is a barebones example of how to use the DSP node.
 
 The `process()` function is run once per frame. You do not need to call it after declaring it - that is done automatically behind the scenes.
 
-The `process()` function takes a single argument, `frames`, which is a table of samples. Do not change the name of this argument, or the node will not work.
+The `process()` function takes a single argument, `frames`, which is an integer representing your `Audio Buffer Size`. Do not change the name of this argument, or the node will not work.
 
-The length of the frame is set by your `Audio Buffer Size`, which can be found under `Audulus 4 > Settings`.
+The length of your `Audio Buffer Size` can be found under `Audulus 4 > Settings`.
 
 ![Audio Buffer Size](/docs/img/audio-buffer-size.png)
 
-A buffer size of `128` means each frame contains `128` samples. These samples are just lists of numbers, and can be accessed by their index. You do not, however, use `frames` directly to access the signal. `frames` is in fact just a global variable that stores the value set by your `Audio Buffer Size`. To bring signals into the DSP node, you instead use an `input` which you declare at the top of the inspector panel.
+A buffer size of `128` means each frame contains `128` samples. These samples are just lists of numbers, and can be accessed by their index. You do not, however, use `frames` directly to access the signal. `frames` is in fact just a global variable that stores the value set by your `Audio Buffer Size`. 
+
+To bring signals into the DSP node, you instead use an `input` which you declare at the top of the inspector panel.
 
 ![Declaring IO](/docs/img/declaring-io.png)
 
@@ -33,6 +35,8 @@ This explains the second part of the necessary boilerplate code below:
 In this example, `i` is the index of the current sample in the frame, and `frames` is the maximum number of samples. The `for` loop loops through each sample in the table and performs a user-defined operation on them. In the example above, each corresponding input sample is sent to fill the list of output samples.
 
 At the end of the frame, the `output` table is emptied to the next node in the signal flow outside of the DSP node. The `input` table is also filled with the next frame of samples.
+
+
 
 Global variables and variables that need to be initiated before use are declared above the `process()` function. You do not need make a separate `init()` function.
 

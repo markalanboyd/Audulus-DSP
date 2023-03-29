@@ -6,9 +6,6 @@ v 1.0
 March 28, 2023
 http://www.markboyd.dev
 
-Inputs: n/a
-Outputs: audioOut
-
 This script generates a sine wave at a set frequency.
 
 You can change the frequency by changing the value of the hz variable.
@@ -33,6 +30,9 @@ and the sine function will return the same value for any phase value, so
 it doesn't matter if the phase variable is greater than 2 * pi.
 
 --]]
+
+-- Inputs: n/a
+-- Outputs: audioOut
 
 hz = 440
 sampleRate = 44100

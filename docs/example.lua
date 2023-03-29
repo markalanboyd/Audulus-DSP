@@ -12,7 +12,8 @@ function multiplyBy2(input)
 end
 
 function process(frames)
+    oncePerFrame = input * 2
     for i = 1, frames do
-        output[i] = multiplyBy2(input[i])
+        output[i] = input[i]
     end
 end

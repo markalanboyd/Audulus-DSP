@@ -8,9 +8,6 @@ http://www.markboyd.dev
 
 ~ Thanks to Taylor Holliday for the base code. ~
 
-Inputs: gateIn
-Outputs: countOut
-
 This is a simple counter that counts up by 1 every time the gateIn input
 is pulsed.
 
@@ -29,6 +26,9 @@ that as long as the gateIn[i] is greater than 0, the prevGate variable
 will stay high as well.
 
 --]]
+
+-- Inputs: gateIn
+-- Outputs: countOut
 
 count = 0
 prevGate = 0
