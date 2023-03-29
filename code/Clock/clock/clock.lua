@@ -1,6 +1,6 @@
 --[[
 
-Phasor
+Clock
 by Mark Boyd
 v 1.0
 March 29, 2023
