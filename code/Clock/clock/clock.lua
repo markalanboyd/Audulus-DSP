@@ -13,7 +13,7 @@ First we declare a variable called acc and set it to 0. This is the
 variable that acts as an accumulator.
 
 Inside the process function, we calculate the incr (increment) variable 
-by dividing the hzIn value by the sampleRateIn value.
+by dividing the hzIn value by the sampleRate value.
 
 Then, we add the incr variable to the acc variable. If the acc variable
 is greater than or equal to 1, we set it to 0.
@@ -25,7 +25,7 @@ than 0.5.
 --]]
 
 -- Inputs: hzIn sampleRate 
--- Outputs: phasorOut
+-- Outputs: gateOut
 
 acc = 0
 
