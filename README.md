@@ -12,13 +12,13 @@ Above is a barebones example of how to use the DSP node.
 
 The `process()` function is run once per frame. You do not need to call it after declaring it - that is done automatically behind the scenes.
 
-The `process()` function takes a single argument, `frames`, which is an integer representing your `Audio Buffer Size`. Do not change the name of this argument, or the node will not work.
+The `process()` function takes a single argument, `frames`. Do not change the name of this argument, or the node will not work.
 
 The length of your `Audio Buffer Size` can be found under `Audulus 4 > Settings`.
 
 ![Audio Buffer Size](/docs/img/audio-buffer-size.png)
 
-A buffer size of `128` means each frame contains `128` samples. These samples are just lists of numbers, and can be accessed by their index. You do not, however, use `frames` directly to access the signal. `frames` is in fact just a global variable that stores the value set by your `Audio Buffer Size`. 
+A buffer size of `128` means each block contains `128` samples. These samples are just lists of numbers, and can be accessed by their index. You do not, however, use `frames` directly to access the signal. `frames` is in fact just a global variable that stores the integer value set by your `Audio Buffer Size`. 
 
 To bring signals into the DSP node, you instead use an `input` which you declare at the top of the inspector panel.
 
@@ -46,7 +46,7 @@ Declare functions to be used within your `process()` function above it.
 
 ![Declaring Functions](/docs/img/declaring-functions.png)
 
-You can declare `local` variables within functions using the `local` keyword.
+You can declare `local` variables within functions using the `local` keyword. There is no need to declare top-level functions or variables as `local`.
 
 Although there are no set standards for Lua about case types, in this library, all variables use `camelCase`, all constants use `SCREAMING_SNAKE_CASE`, and all functions use `camelCase()`.
 
