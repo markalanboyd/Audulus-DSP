@@ -4,7 +4,7 @@ This is a library of Lua DSP code written for Audulus' DSP node. The DSP node us
 
 The DSP node is a great way to write custom audio effects, oscillators, submodule tools, and more.
 
-## Getting Started
+## Overview
 
 ![Basic DSP Code Example](/docs/img/getting-started-example.png)
 
@@ -50,6 +50,10 @@ You can declare `local` variables within functions using the `local` keyword. Th
 
 Although there are no set standards for Lua about case types, in this library, all variables use `camelCase`, all constants use `SCREAMING_SNAKE_CASE`, and all functions use `camelCase()`.
 
+![Sample Rate Global Variable](/docs/img/sample-rate-global.png)
+
+In addition to `frames` you have access to a global variable called `sampleRate`. This is the sample rate of the audio signal. It is set by the `Sample Rate` setting in `Audulus 4 > Settings`. You do not need to pass this variable as an argument to your `process()` function - simply use it as you would a global variable.
+
 ### TLDR:
 
 1. Declare your inputs and outputs in the inspector panel.
@@ -64,3 +68,7 @@ Although there are no set standards for Lua about case types, in this library, a
     end
     ```
 1. Access your inputs and outputs within the for loop like this: `input[i]` and `output[i]`.
+
+## Contributing
+
+Contributions are welcome! Please read the [Contributing Guidelines](/CONTRIBUTING.md) before submitting a pull request.
