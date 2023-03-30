@@ -32,9 +32,7 @@ You should write:
 
 If you're REALLY lazy and don't want to write a description, you can 
 just upload it and I'll add one ;) If I have any questions about how it
-works, I'll ask you.
-
-Thank you!]
+works, I'll ask you.]
 
 --]]
 
