@@ -38,6 +38,6 @@ Please be patient during the review process and be willing to make changes or ad
 
 ## Code of Conduct
 
-All contributors to the project are expected to adhere to the project's [Code of Conduct](/CODE_OF_CONDUCT.md). Any behavior that violates the Code of Conduct may result in the contributor being banned from contributing to the project.
+All contributors to the project are expected to adhere to the project's [Code of Conduct](/docs/CODE_OF_CONDUCT.md). Any behavior that violates the Code of Conduct may result in the contributor being banned from contributing to the project.
 
 Thank you for your interest in the project, and happy contributing!

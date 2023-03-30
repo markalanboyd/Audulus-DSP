@@ -81,9 +81,9 @@ In addition to `frames` you have access to a global variable called `sampleRate`
 
 To optimize your code by only running certain operations once per block, you can perform functions outside of the `for` loop. This is useful for operations that do not need to be performed on every sample in the frame. For example, if you are calculating biquad coefficients, you can do this once per block instead of once per sample.
 
-To access the first sample in the block, you can use `input[1]`.
+To access the first sample in the block for your calculations, you can use `input[1]`.
 
 ---
 ## Contributing
 
-Contributions are welcome! Please read the [Contributing Guidelines](/CONTRIBUTING.md) before submitting a pull request.
+Contributions are welcome! Please read the [Contributing Guidelines](/docs/CODE_OF_CONDUCT.md) before submitting a pull request.
