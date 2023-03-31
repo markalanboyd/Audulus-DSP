@@ -26,6 +26,11 @@ The DSP node is a great way to write custom audio effects, oscillators, submodul
 Contributions are welcome! Please read the [Contributing Guidelines](/docs/CONTRIBUTING.md) before submitting a pull request.
 
 ---
+## Overview
+
+What follows is a brief overview of the boilerplate code you need to use in order to write DSP code for the Audulus DSP node. It is intended for those who have some experience programming. If you are new to programming or audio DSP, you may want to start with the [Introduction to DSP in Audulus](/docs/intro_to_dsp/intro_to_dsp.md) first.
+
+---
 ## The *process(frames)* Function
 
 ![Basic DSP Code Example](/docs/img/getting-started-example.png)
