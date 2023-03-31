@@ -27,9 +27,8 @@ Contributions are welcome! Please read the [Contributing Guidelines](/docs/CONTR
 ---
 ## Overview
 
-What follows is a brief overview of the boilerplate code you need to use in order to write DSP code for the Audulus DSP node. It is intended for those who have some experience programming. If you are new to programming or audio DSP, you may want to start with the [Introduction to DSP in Audulus](/docs/intro_to_dsp/intro_to_dsp.md) first.
+What follows is a brief overview of the boilerplate code you need to use in order to write DSP code for the Audulus DSP node. It is intended for those who have some experience programming. If you are new to programming or DSP, you may want to start with the [Introduction to DSP in Audulus](/docs/intro_to_dsp/intro_to_dsp.md).
 
----
 ## The *process(frames)* Function
 
 ![Basic DSP Code Example](/docs/img/getting-started-example.png)
@@ -43,8 +42,6 @@ The `process()` function takes a single argument, `frames`. Do not change the na
 ![Audio Buffer Size](/docs/img/audio-buffer-size.png)
 
 A buffer size of `128` means each block contains `128` samples. These samples are just lists of numbers, and can be accessed by their index. You do not, however, use `frames` directly to access the signal. `frames` is in fact just a global variable that stores the integer value set by your `Audio Buffer Size`. 
-
----
 
 ## Inputs and Outputs and the `for` loop
 
@@ -64,7 +61,6 @@ In this example, `i` is the index of the current sample in the frame, and `frame
 
 At the end of the frame, the `output` table is emptied to the next node in the signal flow outside of the DSP node. The `input` table is also filled with the next frame of samples.
 
----
 ## Declaring Variables and Functions
 
 Global variables are declared above the `process()` function. You do not need make a separate `init()` function.
@@ -83,7 +79,6 @@ Although there are no set standards for Lua about case types, in this library, a
 
 In addition to `frames` you have access to a global variable called `sampleRate`. This is the sample rate of the audio signal. It is set by the `Sample Rate` setting in `Audulus 4 > Settings`. You do not need to pass this variable as an argument to your `process()` function - simply use it as you would a global variable.
 
---- 
 ## Once Per Block Optimization
 
 ![Once Per Block](/docs/img/once-per-block.png)
