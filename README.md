@@ -86,4 +86,4 @@ To access the first sample in the block for your calculations, you can use `inpu
 ---
 ## Contributing
 
-Contributions are welcome! Please read the [Contributing Guidelines](/docs/CODE_OF_CONDUCT.md) before submitting a pull request.
+Contributions are welcome! Please read the [Contributing Guidelines](/docs/CONTRIBUTING.md) before submitting a pull request.
