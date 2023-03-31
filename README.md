@@ -21,6 +21,11 @@ The DSP node is a great way to write custom audio effects, oscillators, submodul
 1. Access your inputs and outputs within the for loop like this: `input[i]` and `output[i]`.
 
 ---
+## Contributing
+
+Contributions are welcome! Please read the [Contributing Guidelines](/docs/CONTRIBUTING.md) before submitting a pull request.
+
+---
 ## The *process(frames)* Function
 
 ![Basic DSP Code Example](/docs/img/getting-started-example.png)
@@ -82,8 +87,3 @@ In addition to `frames` you have access to a global variable called `sampleRate`
 To optimize your code by only running certain operations once per block, you can perform functions outside of the `for` loop. This is useful for operations that do not need to be performed on every sample in the frame. For example, if you are calculating biquad coefficients, you can do this once per block instead of once per sample.
 
 To access the first sample in the block for your calculations, you can use `input[1]`.
-
----
-## Contributing
-
-Contributions are welcome! Please read the [Contributing Guidelines](/docs/CONTRIBUTING.md) before submitting a pull request.
