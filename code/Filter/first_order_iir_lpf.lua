@@ -21,7 +21,7 @@ because the cutoffCtrlIn value is a linearized cutoff value between 0
 and 1, and we need to convert it to a cutoff value in Hz that will
 smoothly transition from 20Hz to 20kHz.
 
-We then calculate the rc (resonance control) variable by dividing 1 by
+We then calculate the rc (resistance-capacitance) variable by dividing
 the cutoff variable multiplied by twoPi.
 
 Next, we calculate the alpha variable by dividing the sampleRateRecip
