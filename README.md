@@ -20,8 +20,7 @@ The DSP node is a great way to write custom audio effects, oscillators, submodul
     ```
 1. Access your inputs and outputs within the for loop like this: `input[i]` and `output[i]`.
 
----
-## Contributing
+### Contributing
 
 Contributions are welcome! Please read the [Contributing Guidelines](/docs/CONTRIBUTING.md) before submitting a pull request.
 
