@@ -6,14 +6,14 @@ v 1.0
 March 28, 2023
 http://www.markboyd.dev
 
-~ Thanks to Taylor Holliday for the base code. ~
-
 This is a simple counter that counts up by 1 every time the gateIn input
-is pulsed.
+is pulsed. It can be reset to 0 by gating the syncIn input.
 
 First the count and prevGate variables are initialized to 0. The count
 variable will be our output, and the prevGate variable is used to keep 
 track of the previous value of the gateIn input.
+
+If the syncIn input is greater than 0, the count variable is set to 0.
 
 If the prevGate variable is 0 and the gateIn[i] is greater than 0,
 that means that a button press or input clock pulse has occurred. In
@@ -32,7 +32,6 @@ will stay high as well.
 
 count = 0
 prevGate = 0
-
 
 function process(frames)
     for i = 1, frames do
