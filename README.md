@@ -76,7 +76,7 @@ In reality, `inputs` and `outputs` are audio buffer objects, but for the purpose
 
 ## Declaring Variables and Functions
 
-Global variables are declared above the `process()` function. You do not need make a separate `init()` function.
+Global variables are declared above the `process()` function. You do not need make a separate `init()` function. The code that appears above the process() function acts an init procedure and is only run one time when the DSP node first starts running. This behavior is different from Canvas node scripts (which don't have such an initialization procedure).
 
 ``` lua
 GLOBAL_CONSTANT = 42
