@@ -6,7 +6,7 @@ The DSP node is a great way to write custom audio effects, oscillators, modulato
 
 ### Quick Start
 
-1. Declare your inputs and outputs in the inspector panel.
+1. Declare your inputs and outputs in the inspector panel separated by a space.
 1. Initialize your global variables and constants.
 1. Declare your functions.
 1. Add the boilerplate code:
