@@ -1,6 +1,6 @@
 # Audulus-DSP
 
-This is a library of Lua DSP code written for Audulus' DSP node. The DSP node uses Lua to process audio and control signals. 
+This is a library of Lua DSP code written for Audulus' DSP node. The DSP node uses [Lua](https://www.lua.org/) to process audio and control signals. 
 
 The DSP node is a great way to write custom audio effects, oscillators, submodule tools, and more.
 
@@ -33,7 +33,7 @@ What follows is a brief overview of the boilerplate code you need to use in orde
 
 ``` lua
 function process(frames)
-    for i = 1, frames do
+    for i=1,frames do
         output[i] = input[i]
     end
 end
@@ -64,7 +64,7 @@ Inputs and outputs are declared by separating them with a space. Once you have d
 `inputs` and `outputs` are accessed like arrays. This means that you must use the `[]` operator to access the samples they contain.
 
 ``` lua
-for i = 1, frames do
+for i=1,frames do
     output[i] = input[i]
 end
 ```
@@ -95,7 +95,7 @@ function double(x)
 end
 
 function process(frames)
-    for i = 1, frames do
+    for i=1,frames do
         output[i] = double(input[i])
     end
 end
@@ -116,75 +116,47 @@ You do not need to pass `sampleRate` as an argument to your `process()` function
 
 ## Optimizing Strategies
 
-There are a few strategies you can use to optimize your DSP code.
+The specifics of how to optimize your DSP code will depend on the type of DSP you are writing. However, there are a few general strategies that can be applied to most cases.
 
-The first is to, whenever possible, precalculate values that do not change within the `for` loop. This is especially useful for calculations that are expensive to perform.
+First, the DSP node itself has some CPU overhead. This is unavoidable. However, you can reduce the amount of CPU used by your DSP code by optimizing your code.
+
+The more that you can do within one DSP node, the less CPU you will use. For example, if you have a filter and an envelope follower, you can combine them into a single DSP node. This will reduce the overall CPU usage of your patch.
+
+Also, whenever possible, precalculate values that do not change within the `for` loop outside of the `for` loop. This is especially useful for calculations that are expensive to perform.
+
+In the example below, we have a fixed filter with a cutoff of `1000 Hz`. We can precalculate the filter coefficients and store them in global variables. This way, we do not need to perform the same calculations every time the `process()` function is called.
 
 ``` lua
--- Bandpass filter
--- Static filter parameters
-centerFreq = 500
-Q = 1
-
--- Calculate normalized angular frequency
-omega = 2 * math.pi * centerFreq / sampleRate
-alpha = math.sin(omega) / (2 * Q)
-
--- Precalculate filter coefficients
-b0_raw = alpha
-b1_raw = 0
-b2_raw = -alpha
-a0_raw = 1 + alpha
-a1_raw = -2 * math.cos(omega)
-a2_raw = 1 - alpha
-
--- Precalculate divisions
-b0 = b0_raw / a0_raw
-b1 = b1_raw / a0_raw
-b2 = b2_raw / a0_raw
-a1 = a1_raw / a0_raw
-a2 = a2_raw / a0_raw
-
--- Filter state variables
-x1 = 0
-x2 = 0
-y1 = 0
-y2 = 0
+CUTOFF = 1000
+-- Precalculate filter coefficients here
 
 function process(frames)
     for i=1,frames do
-        input_signal = input[i]
-
-        -- Apply biquad filter
-        y = b0 * input_signal + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2
-
-        -- Update state variables
-        x2 = x1
-        x1 = input_signal
-        y2 = y1
-        y1 = y
-
-        output[i] = y
+        -- Filter here
     end
 end
-
-
 ```
 
-To optimize your code by only running certain operations once per block, you can perform functions outside of the `for` loop. This is useful for operations that do not need to be performed on every sample in the frame. For example, if you are calculating biquad coefficients, you can do this once per block instead of once per sample.
+If you want a filter with a variable cutoff, you can use a `cutoff` input and precalculate the filter coefficients in the `process()` function. This works well with knob or envelope-based modulation.
 
-To access the first sample in the block for your calculations, you can use `input[1]`.
+``` lua
+function process(frames)
+    cutoff = cutoffInput[1]
+    -- Precalculate filter coefficients here
+    for i=1,frames do
+        -- Filter here
+    end
+end
+```
 
+You can also calculate everything within the `for` loop. This is the most computationally expensive option, but is a good choice when you want to FM the filter.
 
-
-The processing buffer size - usually the buffer size set by the `Audio Buffer Size` setting in `Audulus 4 > Settings`.
-
-
-
-Feedback loop bug?
-
-
-
-static filter
-
-current sample rate - reason for that is so you can use it in your initialization code. whole script is recompiled when you change the sample rate.
+``` lua
+function process(frames)
+    for i=1,frames do
+        cutoff = cutoffInput[i]
+        -- Calculate filter coefficients here
+        -- Filter here
+    end
+end
+```
