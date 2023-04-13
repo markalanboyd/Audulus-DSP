@@ -2,7 +2,7 @@
 
 This is a library of Lua DSP code written for Audulus' DSP node. The DSP node uses [Lua](https://www.lua.org/) to process audio and control signals. 
 
-The DSP node is a great way to write custom audio effects, oscillators, submodule tools, and more.
+The DSP node is a great way to write custom audio effects, oscillators, modulators, submodule tools, and more.
 
 ### Quick Start
 
@@ -108,7 +108,7 @@ Although there are no set standards for Lua about case types, in this library, a
 ## `sampleRate` Global Variable
 ![Sample Rate Global Variable](/docs/img/sample-rate-global.png)
 
-You also have access to a global variable called `sampleRate`. This is the sample rate of the audio signal. 
+You also have access to a global variable called `sampleRate`. This is the sample rate of the input signal. 
 
 The `sampleRate` variable is set either by Audulus' global sample rate, an inline Resample node (for supersampling), or the host's sample rate if you are using Audulus as an AUv3. If you change the sample rate, the `sampleRate` variable will be updated and the script will be recompiled.
 
