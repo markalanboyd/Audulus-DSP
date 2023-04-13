@@ -1,6 +1,6 @@
 # Audulus-DSP
 
-This is a library of Lua DSP code written for Audulus' DSP node. The DSP node uses Lua to process signals in batches of samples called frames. 
+This is a library of Lua DSP code written for Audulus' DSP node. The DSP node uses Lua to process audio and control signals. 
 
 The DSP node is a great way to write custom audio effects, oscillators, submodule tools, and more.
 
@@ -25,7 +25,7 @@ The DSP node is a great way to write custom audio effects, oscillators, submodul
 Contributions are welcome! Please read the [Contributing Guidelines](/docs/CONTRIBUTING.md) before submitting a pull request.
 
 ---
-## Overview
+# Overview
 
 What follows is a brief overview of the boilerplate code you need to use in order to write DSP code for the Audulus DSP node. It is intended for those who have some experience programming. If you are new to programming or DSP, you may want to start with the [Introduction to DSP in Audulus](/docs/intro_to_dsp/intro_to_dsp.md).
 
@@ -35,13 +35,15 @@ What follows is a brief overview of the boilerplate code you need to use in orde
 
 Above is a barebones example of how to use the DSP node. 
 
-The `process()` function is run once per frame. You do not need to call it after declaring it - that is done automatically behind the scenes.
+The `process()` function runs automatically. You do not need to call it after declaring it - that is done behind the scenes.
 
 The `process()` function takes a single argument, `frames`. Do not change the name of this argument, or the node will not work.
 
 ![Audio Buffer Size](/docs/img/audio-buffer-size.png)
 
-A buffer size of `128` means each block contains `128` samples. These samples are just lists of numbers, and can be accessed by their index. You do not, however, use `frames` directly to access the signal. `frames` is in fact just a global variable that stores the integer value set by your `Audio Buffer Size`. 
+A buffer size of `128` means each block contains `128` samples. A sample is just a floating-point number. A block is a list of samples, and each sample can be accessed by its index. 
+
+You do not use the `frames` variable directly to access the signal. `frames` is just a global variable that stores the integer value set by your `Audio Buffer Size`. 
 
 ## Inputs and Outputs and the `for` loop
 
@@ -51,15 +53,11 @@ To bring signals into the DSP node, you instead use an `input` which you declare
 
 Inputs and outputs are declared by separating them with a space. Once you have declared each input and output, it will appear on the node as a connection that can be made within Audulus. You can also then use the `input` and `output` variables in your script.
 
-When you use `inputs` and `outputs` that are declared in the inspector, you must remember that they are tables. This means that you must use the `[]` operator to access the values.
-
-This explains the second part of the necessary boilerplate code below:
+When you use `inputs` and `outputs` that are declared in the inspector, you must remember that they are lists. This means that you must use the `[]` operator to access the samples.
 
 ![For Loop](/docs/img/for-loop.png)
 
-In this example, `i` is the index of the current sample in the frame, and `frames` is the maximum number of samples. The `for` loop loops through each sample in the table and performs a user-defined operation on them. In the example above, each corresponding input sample is sent to fill the list of output samples.
-
-At the end of the frame, the `output` table is emptied to the next node in the signal flow outside of the DSP node. The `input` table is also filled with the next frame of samples.
+In this example, `i` is the index of the current sample in the frame, and `frames` is the maximum number of samples. The `for` loop loops through each sample in the table and performs a user-defined operation on them. With `output[i] = input [i]` each corresponding input sample is added to the list of output samples.
 
 ## Declaring Variables and Functions
 
