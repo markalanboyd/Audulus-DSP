@@ -2,8 +2,8 @@
 
 Phase Modulation Sine Wave VCO
 by Mark Boyd
-v 1.0
-March 28, 2023
+v 1.1
+April 13th, 2023
 http://www.markboyd.dev
 
 This script generates a sine wave at a set frequency and allows the
@@ -17,12 +17,12 @@ processing time.
 The phase variable is initialized to 0. This is the variable that acts
 as the accumulator for the sine wave.
 
-Inside the process function, the hz variable is set to the refHz
-variable multiplied by 2 raised to the power of the octIn value. This
-is because the octIn value is a linearized pitch value between -5 and 5,
-and we need to convert it to a frequency value.
+Inside the process function, but outside of the loop, the hz variable is
+set to the refHz variable multiplied by 2 raised to the power of the
+octIn value. This is because the octIn value is a linearized pitch value
+between -5 and 5, and we need to convert it to a frequency value.
 
-The pm variable is set to the pmIn value multiplied by pi. This is
+The pm variable is set to the pmIn value multiplied by 2 * pi. This is
 because the pmIn value is a linearized phase modulation value between
 -1 and 1, and we need to convert it to a phase modulation value in
 radians.
@@ -40,7 +40,7 @@ plus the pm variable, generating a phase modulated sine wave.
 
 --]]
 
--- Inputs: octIn pmIn sampleRate
+-- Inputs: octIn pmIn
 -- Outputs: audioOut
 
 refHz = 440
@@ -48,10 +48,10 @@ twoPi = 2 * math.pi
 phase = 0
 
 function process(frames)
+    local hz = refHz * 2 ^ octIn[1]
     for i = 1, frames do
-        local hz = refHz * 2 ^ octIn[i]
-        local pm = pmIn[i] * math.pi
-        local phaseIncrement = hz / sampleRate[i] * twoPi
+        local pm = pmIn[i] * 2 * math.pi
+        local phaseIncrement = hz / sampleRate * twoPi
         phase = phase + phaseIncrement
         audioOut[i] = math.sin(phase + pm)
     end

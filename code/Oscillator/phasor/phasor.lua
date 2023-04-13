@@ -2,8 +2,8 @@
 
 Phasor
 by Mark Boyd
-v 1.0
-March 29, 2023
+v 1.1
+April 13th, 2023
 http://www.markboyd.dev
 
 This script creates a phasor that outputs a value between 0 and 2 * pi.
@@ -29,15 +29,15 @@ Finally, we set the phasorOut value to the phase variable.
 
 --]]
 
--- Inputs: hzIn sampleRate 
+-- Inputs: hzIn 
 -- Outputs: phasorOut
 
 twoPi = 2 * math.pi
 phase = 0
 
 function process(frames)
+    phaseIncrement = hzIn[1] / sampleRate * twoPi
     for i = 1, frames do
-    	phaseIncrement = hzIn[i] / sampleRateIn[i] * twoPi
         phase = phase + phaseIncrement
         if phase >= twoPi then phase = 0 end
         phasorOut[i] = phase

@@ -37,7 +37,7 @@ called multiple times in a row.
 --]]
 
 -- Inputs: gateIn
--- Outputs: out0, out1, out2, out3, out4, out5, out6, out7
+-- Outputs: out0 out1 out2 out3 out4 out5 out6 out7
 
 values = {0, 1, 2, 3, 4, 5, 6, 7}
 gatePrev = 0

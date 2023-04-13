@@ -1,12 +1,12 @@
 --[[
 
-First Order IIR LPF
+First-Order IIR LPF
 by Mark Boyd
-v 1.0
-March 30, 2023
+v 1.0.1
+April 13th, 2023
 http://www.markboyd.dev
 
-This script creates a 1 pole (6dB/oct), non-resonant low pass filter.
+This script creates a 1-pole (6dB/oct), non-resonant low pass filter.
 
 The twoPi variable and sampleRateRecip variable are set to 2 * pi and
 1 / sampleRate, respectively. This is because it's best practice to
@@ -37,14 +37,14 @@ Finally, we set the audioOut value to the prevOutput variable.
 --]]
 
 -- Inputs: audioIn cutoffCtrlIn
--- Outputs: audioOut cutoffOut
+-- Outputs: audioOut
 
 twoPi = 2 * math.pi
 sampleRateRecip = 1 / sampleRate
 prevOutput = 0
 
 function process(frames)
-    cutoff = 20 * 10^(3 * cutoffCtrlIn[1])
+    cutoff = 20 * 10 ^ (3 * cutoffCtrlIn[1])
     rc = 1 / (cutoff * twoPi)
     alpha = sampleRateRecip / (rc + sampleRateRecip)
     for i = 1, frames do

@@ -45,6 +45,7 @@ function process(frames)
         if acc == 0 then
             pw = pwCtrlIn[i]
         end
+        
         acc = acc + incr
         if acc >= 1 then acc = 0 end
         gateOut[i] = acc <= pw and 1 or 0

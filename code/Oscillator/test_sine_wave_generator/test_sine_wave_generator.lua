@@ -2,16 +2,13 @@
 
 Test Sine Wave Generator
 by Mark Boyd
-v 1.0
-March 28, 2023
+v 1.1
+April 13th, 2023
 http://www.markboyd.dev
 
 This script generates a sine wave at a set frequency.
 
 You can change the frequency by changing the value of the hz variable.
-
-The sampleRate is set to 44100, but you must set it to match the sample
-rate of the audio device you are using.
 
 The phaseIncrement variable is calculated by dividing the frequency by
 the sample rate and multiplying by 2 * pi. This is the amount that the
@@ -35,7 +32,6 @@ it doesn't matter if the phase variable is greater than 2 * pi.
 -- Outputs: audioOut
 
 hz = 440
-sampleRate = 44100
 phaseIncrement = hz / sampleRate * 2 * math.pi
 phase = 0
 
