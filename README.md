@@ -19,7 +19,7 @@ The DSP node is a great way to write custom audio effects, oscillators, modulato
     end
     ```
 1. Access your inputs and outputs within the for loop like this: `input[i]` and `output[i]`.
-1. The editor contains the built-in [`math` library](https://www.lua.org/manual/5.4/manual.html#6.7) for Lua 5.4. Other external libraries must be copied and pasted into the script editor.
+1. The editor contains the built-in [`math`](https://www.lua.org/manual/5.4/manual.html#6.7) and [`os.time`](http://www.lua.org/pil/22.1.html) libraries for Lua 5.4. Other external libraries must be copied and pasted into the script editor.
 
 ### Contributing
 
