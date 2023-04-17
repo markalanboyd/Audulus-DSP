@@ -5,6 +5,8 @@ def generate_toc(root, dir_name):
     for dirpath, dirnames, _ in os.walk(os.path.join(root, dir_name)):
         level = dirpath.replace(root, '').count(os.sep)
         indent = '  ' * (level - 1)
+        
+        dirnames.sort()
 
         if level > 0:
             dirname = os.path.basename(dirpath)
