@@ -12,10 +12,10 @@ numbers that are different every time the script is run.
 
 The os.time() function returns the current time in seconds since the
 Unix epoch. The os.date() function formats the time in a human-readable
-format. We then have to convert the formatted time to a number so that
-we can use it as a seed for the random number generator. Next, the
-math.randomseed() function sets the random seed to the value passed
-to it.
+format. We convert the formatted time to a number with the tonumber()
+function so that we can use it as a seed for the random number
+generator. Next, the math.randomseed() function sets the random seed to
+the value passed to it.
 
 Within the process() function, the output is set to a random number
 between 0 and 1 for every sample. The output is white noise.
@@ -23,7 +23,7 @@ between 0 and 1 for every sample. The output is white noise.
 --]]
 
 currentTime = os.time()
-formattedTime = os.date("%m%H%M%S", currentTime)
+formattedTime = os.date("%m%d%H%M%S", currentTime)
 seed = tonumber(formattedTime)
 math.random(seed)
 
