@@ -8,7 +8,7 @@ def generate_toc(root, dir_name):
 
         if level > 0:
             dirname = os.path.basename(dirpath)
-            link = os.path.join(dirpath).replace(root, '.')
+            link = os.path.join('.', dirpath.replace(root, 'code'))
             toc.append(f"{indent}- [`{dirname}`]({link})\n")
 
     return ''.join(toc)
