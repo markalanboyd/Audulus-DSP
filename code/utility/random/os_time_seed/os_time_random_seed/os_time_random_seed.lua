@@ -6,9 +6,9 @@ v 1.0
 April 17th, 2023
 http://www.markboyd.dev
 
-This script generates a random seed based on the current time and sets
-the random seed to that value. This is useful for generating random
-numbers that are different every time the script is run.
+This script uses the os.time() function to use the current time as a
+random seed. This is useful for generating random numbers that are
+different every time the script is run.
 
 The os.time() function returns the current time in seconds since the
 Unix epoch. The os.date() function formats the time in a human-readable
