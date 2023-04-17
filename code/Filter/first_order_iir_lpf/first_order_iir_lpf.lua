@@ -52,5 +52,3 @@ function process(frames)
         audioOut[i] = prevOutput
     end
 end
-
-test
