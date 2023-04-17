@@ -1,4 +1,3 @@
-- [``](./code/)
 - [`oscillator`](./code/oscillator)
   - [`test_sine_wave_generator`](./code/oscillator/test_sine_wave_generator)
   - [`pm_sine_vco`](./code/oscillator/pm_sine_vco)

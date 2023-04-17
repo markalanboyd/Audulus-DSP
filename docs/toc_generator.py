@@ -11,7 +11,7 @@ def generate_toc(root, dir_name):
             link = os.path.join('.', dirpath.replace(root, 'code'))
             toc.append(f"{indent}- [`{dirname}`]({link})\n")
 
-    return ''.join(toc)
+    return ''.join(toc[1:])
 
 def main():
     root_dir = './code'
