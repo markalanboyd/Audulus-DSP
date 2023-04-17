@@ -22,13 +22,16 @@ between 0 and 1 for every sample. The output is white noise.
 
 --]]
 
+-- Inputs: None
+-- Outputs: randomOut
+
 currentTime = os.time()
 formattedTime = os.date("%m%d%H%M%S", currentTime)
 seed = tonumber(formattedTime)
-math.random(seed)
+math.randomseed(seed)
 
 function process(frames)
     for i = 1, frames do
-        output[i] = math.random()
+        randomOut[i] = math.random()
     end
 end
