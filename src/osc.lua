@@ -18,16 +18,33 @@ function Osc:update()
     self.__phase = self.__phasor:audio(
         self.hz,
         self.__gate:to_pulse(self.sync)
-    ) + self.phase_offset * Math.pi2
+    ) + self.phase_offset * Math.two_pi
 end
 
 function Osc:sine()
+    local pure_sine = math.sin(self.__phase)
+    return (1 - self.shape) * pure_sine +
+        self.shape * math.sin(
+            pure_sine * Math.half_pi * (self.shape * self.shape * 19 + 1)
+        )
+end
+
+function Osc:pure_sine()
     return math.sin(self.__phase)
 end
 
 function Osc:triangle()
+    local pure_triangle = math.abs(
+        ((self.__phase + Math.half_pi) % Math.two_pi / Math.two_pi * 2 - 1)
+    ) * -2 + 1
+    local factor = self.shape * 4 + 1
+    local rescale = math.max(((1 - self.shape) * 1.3), 1)
+    return Math.tanh(pure_triangle * factor) * rescale
+end
+
+function Osc:pure_triangle()
     return math.abs(
-        ((self.__phase + Math.hpi) % Math.pi2 / Math.pi2 * 2 - 1)
+        (self.__phase + Math.half_pi / Math.two_pi * 2 - 1)
     ) * -2 + 1
 end
 
@@ -37,5 +54,5 @@ function Osc:square()
 end
 
 function Osc:saw()
-    return (self.__phase + Math.hpi) % Math.pi2 / Math.pi2 * 2 - 1
+    return (self.__phase + Math.half_pi) % Math.two_pi / Math.two_pi * 2 - 1
 end
