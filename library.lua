@@ -20,16 +20,33 @@ function Osc:update()
     self.__phase = self.__phasor:audio(
         self.hz,
         self.__gate:to_pulse(self.sync)
-    ) + self.phase_offset * Math.pi2
+    ) + self.phase_offset * Math.two_pi
 end
 
 function Osc:sine()
+    local pure_sine = math.sin(self.__phase)
+    return (1 - self.shape) * pure_sine +
+        self.shape * math.sin(
+            pure_sine * Math.half_pi * (self.shape * self.shape * 19 + 1)
+        )
+end
+
+function Osc:pure_sine()
     return math.sin(self.__phase)
 end
 
 function Osc:triangle()
+    local pure_triangle = math.abs(
+        ((self.__phase + Math.half_pi) % Math.two_pi / Math.two_pi * 2 - 1)
+    ) * -2 + 1
+    local factor = self.shape * 4 + 1
+    local rescale = math.max(((1 - self.shape) * 1.3), 1)
+    return Math.tanh(pure_triangle * factor) * rescale
+end
+
+function Osc:pure_triangle()
     return math.abs(
-        ((self.__phase + Math.hpi) % Math.pi2 / Math.pi2 * 2 - 1)
+        (self.__phase + Math.half_pi / Math.two_pi * 2 - 1)
     ) * -2 + 1
 end
 
@@ -39,8 +56,11 @@ function Osc:square()
 end
 
 function Osc:saw()
-    return (self.__phase + Math.hpi) % Math.pi2 / Math.pi2 * 2 - 1
+    return (self.__phase + Math.half_pi) % Math.two_pi / Math.two_pi * 2 - 1
 end
+SampleAndHold = {}
+SH = SampleAndHold
+SampleAndHold.__index = SampleAndHold
 Gate = {}
 G = Gate
 Gate.__index = Gate
@@ -58,7 +78,6 @@ function Gate:to_pulse(gate)
         self.latch = false
         return self.state
     end
-
     if not self.latch then
         self.state = 1
         self.latch = true
@@ -70,9 +89,18 @@ end
 Math = {}
 M = Math
 
-Math.pi2 = math.pi * 2
-Math.hpi = math.pi * 0.5
-Math.qpi = math.pi * 0.25
+Math.two_pi = math.pi * 2
+Math.half_pi = math.pi * 0.5
+Math.quarter_pi = math.pi * 0.25
+
+Math.inv_sr = 1 / sampleRate
+
+function Math.tanh(x)
+    local e2x = math.exp(2 * x)
+    return (e2x - 1) / (e2x + 1)
+end
+-- TODO Fix phase offset
+
 Phasor = {}
 P = Phasor
 Phasor.__index = Phasor
@@ -84,18 +112,18 @@ function Phasor.new()
 end
 
 function Phasor:audio(hz, sync)
-    local phase_increment = hz / sampleRate * Math.pi2
+    local phase_increment = hz * Math.inv_sr * Math.two_pi
     self.phase = self.phase + phase_increment
-    if self.phase >= Math.pi2 or sync > 0 then
+    if self.phase >= Math.two_pi or sync > 0 then
         self.phase = 0
     end
     return self.phase
 end
 
 function Phasor:control(frames, hz, sync)
-    local phase_increment = hz / (sampleRate / frames) * Math.pi2
+    local phase_increment = hz / (sampleRate / frames) * Math.two_pi
     self.phase = self.phase + phase_increment
-    if self.phase >= Math.pi2 or sync > 0 then
+    if self.phase >= Math.two_pi or sync > 0 then
         self.phase = 0
     end
     return self.phase
