@@ -15,7 +15,6 @@ function Gate:to_pulse(gate)
         self.latch = false
         return self.state
     end
-
     if not self.latch then
         self.state = 1
         self.latch = true
